@@ -1,0 +1,1140 @@
+OSPF
+
+Router 0 :-
+
+Router(config)#interface fastEthernet 5/0
+Router(config-if)#ip address 120.0.0.1 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config)#interface fastEthernet 4/0
+Router(config-if)#ip address 170.0.0.2 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 9/0
+Router(config-if)#ip address 140.0.0.2 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 0/0	
+Router(config-if)#ip address 192.168.8.1 255.255.255.0
+Router(config-if)#no shutdown 
+
+Router(config)#router ospf 1
+Router(config-router)#router-id 1.1.1.1
+Router(config-router)#network 120.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 140.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 170.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 192.168.8.0 0.0.0.255 area 0
+
+ACL:- 
+Router(config)#access-list 2
+Router(config)#access-list 2 deny 192.168.10.2 0.0.0.0 
+Router(config)#access-list 2 deny 192.168.1.2 0.0.0.0 
+Router(config)#access-list 2 permit any
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 2 in
+
+Router 2 :-
+
+Router(config)#interface fastEthernet 9/0
+Router(config-if)#ip address 140.0.0.1 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 4/0
+Router(config-if)#ip address 150.0.0.1 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config)#interface fastEthernet 2/0
+Router(config-if)#ip address 192.168.10.1 255.255.255.0
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 3/0
+Router(config-if)#ip address 160.0.0.2 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config)#router ospf 1
+Router(config-router)#router-id 3.3.3.3
+Router(config-router)#network 140.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 160.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 150.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 192.168.10.0 0.0.0.255 area 0
+
+Router(config)#access-list 2
+Router(config)#access-list 2 deny 192.168.8.1 0.0.0.0
+Router(config)#access-list 2 deny 192.168.1.1 0.0.0.0
+Router(config)#access-list 2 permit any
+Router(config)#interface fastEthernet 2/0
+Router(config-if)#ip access-group 2 in
+
+Router 1 :-
+
+Router(config)#interface fastEthernet 6/0
+Router(config-if)#ip address 130.0.0.2 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 4/0
+Router(config-if)#ip address 160.0.0.1 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 5/0
+Router(config-if)#ip address 120.0.0.2 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config)#router ospf 1
+Router(config-router)#router-id 2.2.2.2
+Router(config-router)#network 120.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 160.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 130.0.0.0 0.0.0.3 area 0
+
+Router 3 :-
+
+Router(config)#interface fastEthernet 9/0
+Router(config-if)#ip address 150.0.0.2 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 4/0
+Router(config-if)#ip address 170.0.0.1 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 8/0
+Router(config-if)#ip address 130.0.0.1 255.255.255.252
+Router(config-if)#no shutdown 
+
+Router(config-if)#interface fastEthernet 2/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shutdown 
+
+Router(config)#router ospf 1
+Router(config-router)#router-id 4.4.4.4
+Router(config-router)#network 130.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 170.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 150.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 192.168.1.0 0.0.0.255 area 0
+
+Router(config)#access-list 2 deny 192.168.10.1 0.0.0.0 
+Router(config)#access-list 2 deny 192.168.8.1 0.0.0.0 
+Router(config)#access-list 2 permit any
+Router(config)#interface fastEthernet 2/0
+Router(config-if)#ip access-group 2 in
+
+DHCP snooping 
+
+Switch 1:- 
+
+Switch(config)#ip dhcp snooping 
+Switch(config)#interface gigabitEthernet 0/1
+Switch(config-if)#ip dhcp snooping trust 
+
+Switch 2:- 
+
+Switch(config)#ip dhcp snooping 
+Switch(config)#interface fastEthernet 0/3
+Switch(config-if)#ip dhcp snooping trust 
+
+Switch 3:- 
+
+Switch(config)#ip dhcp snooping 
+Switch(config)#interface gigabitEthernet 0/1
+Switch(config-if)#ip dhcp snooping trust
+
+
+
+EIGRP
+
+Router 14:-
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 200.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 201.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 201.0.0.0 
+Router(config-router)#network 200.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 7:-
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 200.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 202.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.8.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 200.0.0.0 
+Router(config-router)#network 202.0.0.0
+Router(config-router)#network 192.168.8.1
+Router(config-router)#passive-interface fastEthernet 0/0
+Router(config-router)#no auto-summary 
+
+Router(config)#access-list 100 deny icmp 192.168.8.0 0.0.0.255 192.168.100.0 0.0.0.255
+Router(config)#access-list 100 permit ip any any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 100 in
+
+Router 8:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 202.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 203.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router  eigrp 1
+Router(config-router)#network 202.0.0.0 
+Router(config-router)#network 203.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 16:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 203.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 205.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#net
+Router(config-router)#network 205.0.0.0
+Router(config-router)#network 203.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 9:-
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 205.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 206.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 207.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 206.0.0.0
+Router(config-router)#network 205.0.0.0
+Router(config-router)#network 207.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 10:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 206.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 204.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 208.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 208.0.0.0
+Router(config-router)#network 204.0.0.0
+Router(config-router)#network 206.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 15:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 204.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 201.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 204.0.0.0
+Router(config-router)#network 201.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 4:-
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 207.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 210.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 207.0.0.0
+Router(config-router)#network 210.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 5:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 210.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 213.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 211.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 213.0.0.0
+Router(config-router)#network 211.0.0.0
+Router(config-router)#network 210.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 17:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 211.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 212.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 209.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 211.0.0.0
+Router(config-router)#network 209.0.0.0
+Router(config-router)#network 212.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 6:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 209.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+
+Router(config)#interface FastEthernet7/0
+Router(config-if)#ip address 208.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 209.0.0.0
+Router(config-router)#network 208.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 11:-
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 212.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 214.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 214.0.0.0
+Router(config-router)#network 212.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 12:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 213.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 215.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 215.0.0.0
+Router(config-router)#network 213.0.0.0
+Router(config-router)#no auto-summary 
+
+Router 13:-
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 215.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 214.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router eigrp 1
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 214.0.0.0
+Router(config-router)#network 215.0.0.0
+Router(config-router)#passive-interface fastEthernet 0/0
+Router(config-router)#no auto-summary
+
+Router(config)#access-list 100 deny icmp 192.168.1.0 0.0.0.255 192.168.100.0 0.0.0.255
+Router(config)#access-list 100 permit ip any any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 100 in
+
+Telnet (Management pc)
+
+Router(config)#line vty 0 4
+Router(config-line)#password rishitha
+Router(config-line)#login
+
+Router(config)#enable secret rishitha
+Router(config)#service password-encryption 
+
+
+RIP v2
+
+Router 18 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 100.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 101.0.0.1 255.0.0.0
+Router(config-if)#ip address 101.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.20.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 192.168.20.1
+Router(config-router)#network 100.0.0.0
+Router(config-router)#network 101.0.0.0
+Router(config-router)#passive-interface fastEthernet 0/0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router(config)#access-list 2 deny 192.168.20.3 0.0.0.0
+Router(config)#access-list 2 permit any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 2 in
+
+Router(config)#access-list 100 deny icmp 192.168.20.0 0.0.0.255 103.0.0.2 0.0.0.0
+Router(config)#access-list 100 deny icmp 192.168.20.0 0.0.0.255 102.0.0.1 0.0.0.0
+Router(config)#access-list 100 permit ip any any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 100 in
+
+Router 19 :-
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 102.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 100.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 102.0.0.0
+Router(config-router)#network 100.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router 20 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 103.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 101.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 101.0.0.0
+Router(config-router)#network 103.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary
+
+Router 21 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 103.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 102.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet9/0
+Router(config-if)#ip address 104.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet8/0
+Router(config-if)#ip address 106.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 102.0.0.0
+Router(config-router)#network 105.0.0.0
+Router(config-router)#network 104.0.0.0
+Router(config-router)#network 103.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router 22 :-
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 109.0.0.2 255.0.0.0
+Router(config-if)#ip address 109.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 108.0.0.0
+Router(config-router)#network 109.0.0.0
+Router(config-router)#network 106.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary
+
+Router 23 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 105.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 104.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 107.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 105.0.0.0
+Router(config-router)#network 107.0.0.0
+Router(config-router)#network 104.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router 24 :-
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 108.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 115.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 110.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip
+Router(config-router)#network 108.0.0.0
+Router(config-router)#network 115.0.0.0
+Router(config-router)#network 110.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no  auto-summary 
+
+Router 25 :-
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 105.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 107.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 115.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 115.0.0.0
+Router(config-router)#network 107.0.0.0
+Router(config-router)#network 105.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router 26 :-
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 110.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet7/0
+Router(config-if)#ip address 109.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 111.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 112.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 112.0.0.0
+Router(config-router)#network 110.0.0.0
+Router(config-router)#network 109.0.0.0
+Router(config-router)#network 111.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router 27 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 111.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 113.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 111.0.0.0
+Router(config-router)#network 113.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router 28 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 114.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 112.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 114.0.0.0
+Router(config-router)#network 112.0.0.0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router 29 :-
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 113.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 114.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.30.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#router rip 
+Router(config-router)#network 114.0.0.0
+Router(config-router)#network 113.0.0.0
+Router(config-router)#network 192.168.30.0
+Router(config-router)#passive-interface fastEthernet 0/0
+Router(config-router)#version 2
+Router(config-router)#no auto-summary 
+
+Router(config)#access-list 2 deny 192.168.30.2 0.0.0.0
+Router(config)#access-list 2 permit any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 2 in
+
+Router(config)#access-list 100 deny icmp 192.168.30.0 0.0.0.255 111.0.0.2 0.0.0.0
+Router(config)#access-list 100 deny icmp 192.168.30.0 0.0.0.255 112.0.0.1 0.0.0.0
+Router(config)#access-list 100 permit ip any any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 100 in
+
+Default Routing 
+
+  Ether Channel:-
+
+Switch 0:-
+
+Switch(config)#interface range fastEthernet 0/2-5
+Switch(config-if-range)#channel-group 1 mode auto 
+
+Switch 1:-
+
+Switch(config)#interface range fastEthernet 0/1-4
+Switch(config-if-range)#channel-group 1 mode desirable
+
+Switch 2:-
+
+Switch(config)#interface range fastEthernet 0/1-4
+Switch(config-if-range)#channel-group 1 mode desirable 
+
+Switch 3:-
+
+Switch(config)#interface range fastEthernet 0/2-5
+Switch(config-if-range)#channel-group 1 mode auto 
+
+Switch 4:-
+
+Switch(config)#interface range fastEthernet 0/1-4
+Switch(config-if-range)#channel-group 1 mode desirable 
+
+Switch 5:-
+
+Switch(config)#interface range fastEthernet 0/1-4
+Switch(config-if-range)#channel-group 1 mode desirable 
+
+Router 30 :-
+
+Router(config)#interface Ethernet0/1/0
+Router(config-if)#ip address 192.168.40.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 20.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/1
+Router(config-if)#ip address 21.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 20.0.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 21.0.0.1
+
+Router 31 :-
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 20.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 22.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 23.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 23.0.0.1
+Router(config)#ip route 0.0.0.0 0.0.0.0 22.0.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 20.0.0.1
+
+Router(config)#access-list 100 deny tcp 192.168.40.0 0.0.0.255 33.33.33.0 0.0.0.255
+Router(config)#access-list 100 permit tcp any any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 100 in
+
+Router 32 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 23.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 25.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 25.0.0.1
+Router(config)#ip route 0.0.0.0 0.0.0.0 23.0.0.2
+
+Router 33 :-
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 28.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 25.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 26.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 26.0.0.1
+Router(config)#ip route 0.0.0.0 0.0.0.0 28.0.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 25.0.0.2
+
+Router(config)#access-list 100 deny tcp 192.168.50.0 0.0.0.255 33.33.33.0 0.0.0.255
+Router(config)#access-list 100 permit ip any any 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip access-group 100 in
+
+Router 34 :-
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 21.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 24.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 22.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 24.0.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 22.0.0.1
+Router(config)#ip route 0.0.0.0 0.0.0.0 21.0.0.2
+
+
+Router 35 :-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 24.0.0.2 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 27.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 33.33.33.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 27.0.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 24.0.0.1
+
+Router 36 :-
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 30.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 26.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 27.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 26.0.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 30.0.0.1
+Router(config)#ip route 0.0.0.0 0.0.0.0 27.0.0.1
+
+Router 37 :-
+
+Router(config)#interface Ethernet0/1/0
+Router(config-if)#ip address 192.168.50.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 28.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/1
+Router(config-if)#ip address 30.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 0.0.0.0 0.0.0.0 30.0.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 28.0.0.1
+
+
+  GRE VPN :-
+
+Router 30 :-
+
+Router(config)#interface tunnel 1
+Router(config-if)#ip  address 5.5.5.5 255.255.255.252
+Router(config-if)#tunnel destination 28.0.0.2
+Router(config-if)#tunnel destination 30.0.0.1
+Router(config-if)#tunnel source fastEthernet 0/1
+Router(config-if)#tunnel source fastEthernet 0/0
+
+Router 37 :-
+
+Router(config)#interface tunnel 1
+Router(config-if)#ip address 5.5.5.6 255.255.255.252
+Router(config-if)#tunnel destination 20.0.0.1
+Router(config-if)#tunnel destination 21.0.0.2
+Router(config-if)#tunnel source fastEthernet 0/1
+Router(config-if)#tunnel source fastEthernet 0/0
+
+Static Routing 
+
+Router 38:-
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.80.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.0.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 11.0.2.0 255.255.255.252 11.0.0.2
+Router(config)#ip route 11.0.4.0 255.255.255.252 11.0.0.2
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.0.2
+Router(config)#ip route 11.0.5.0 255.255.255.252 11.0.0.2
+Router(config)#ip route 192.168.60.0 255.255.255.0 11.0.0.2
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.0.2
+
+Router 39:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 11.0.2.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 192.168.80.0 255.255.255.0 11.0.0.1
+Router(config)#ip route 11.0.4.0 255.255.255.252 11.0.2.2
+Router(config)#ip route 11.0.5.0 255.255.255.252 11.0.2.2
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.2.2
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.2.2
+Router(config)#ip route 192.168.60.0 255.255.255.0 11.0.2.2
+
+Router 40:-
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.90.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.1.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 11.0.3.0 255.255.255.252 11.0.1.2
+Router(config)#ip route 11.0.9.0 255.255.255.252 11.0.1.2
+Router(config)#ip route 11.0.6.0 255.255.255.252 11.0.1.2
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.1.2
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.1.2
+Router(config)#ip route 192.168.70.0 255.255.255.0 11.0.1.2
+
+
+Router 41:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.1.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 11.0.3.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 192.168.90.0 255.255.255.0 11.0.1.1
+Router(config)#ip route 11.0.3.0 255.255.255.252 11.0.3.2
+Router(config)#ip route 11.0.9.0 255.255.255.252 11.0.3.2
+Router(config)#ip route 11.0.6.0 255.255.255.252 11.0.3.2
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.3.2
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.3.2
+Router(config)#ip route 192.168.70.0 255.255.255.0 11.0.3.2
+
+Router 42:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.2.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#no ip address
+Router(config-if)#ip address 11.0.4.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 11.0.7.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 192.168.80.0 255.255.255.0 11.0.2.1
+Router(config)#ip route 11.0.0.0 255.255.255.252 11.0.2.1
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.7.1
+Router(config)#ip route 11.0.3.0 255.255.255.252 11.0.7.1
+Router(config)#ip route 11.0.9.0 255.255.255.252 11.0.7.1
+Router(config)#ip route 11.0.4.0 255.255.255.252 11.0.4.2
+Router(config)#ip route 11.0.5.0 255.255.255.252 11.0.4.2
+Router(config)#ip route 192.168.60.0 255.255.255.0 11.0.4.2
+
+Router 43:-
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 11.0.7.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.8.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 11.0.4.0 255.255.255.252 11.0.7.2
+Router(config)#ip route 11.0.5.0 255.255.255.252 11.0.7.2
+Router(config)#ip route 11.0.2.0 255.255.255.252 11.0.7.2
+Router(config)#ip route 11.0.0.0 255.255.255.252 11.0.7.2
+Router(config)#ip route 192.168.60.0 255.255.255.0 11.0.7.2
+Router(config)#ip route 192.168.80.0 255.255.255.0 11.0.7.2
+Router(config)#
+Router(config)#ip route 192.168.70.0 255.255.255.0 11.0.8.1
+Router(config)#ip route 192.168.90.0 255.255.255.0 11.0.8.1
+Router(config)#ip route 11.0.6.0 255.255.255.252 11.0.8.1
+Router(config)#ip route 11.0.9.0 255.255.255.252 11.0.8.1
+Router(config)#ip route 11.0.3.0 255.255.255.252 11.0.8.1
+Router(config)#ip route 11.0.1.0 255.255.255.252 11.0.8.1
+
+Router 44:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.3.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet5/0
+Router(config-if)#ip address 11.0.5.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 11.0.8.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 11.0.4.0 255.255.255.252 11.0.8.2
+Router(config)#ip route 11.0.2.0 255.255.255.252 11.0.8.2
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.8.2
+Router(config)#ip route 11.0.6.0 255.255.255.252 11.0.9.2
+Router(config)#ip route 192.168.70.0 255.255.255.0 11.0.9.2
+Router(config)#ip route 192.168.90.0 255.255.255.0 11.0.3.1
+Router(config)#ip route 11.0.1.0 255.255.255.252 11.0.3.1
+
+Router 45:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.5.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 11.0.6.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 192.168.70.0 255.255.255.0 11.0.6.2
+Router(config)#ip route 11.0.3.0 255.255.255.252 11.0.9.1
+Router(config)#ip route 11.0.1.0 255.255.255.252 11.0.9.1
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.9.1
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.9.1
+Router(config)#ip route 192.168.90.0 255.255.255.0 11.0.9.1
+
+Router 46:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.4.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet6/0
+Router(config-if)#ip address 11.0.5.1 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#ip route 192.168.60.0 255.255.255.0 11.0.5.2
+Router(config)#ip route 11.0.2.0 255.255.255.252 11.0.4.1
+Router(config)#ip route 11.0.0.0 255.255.255.252 11.0.4.1
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.4.1
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.4.1
+Router(config)#ip route 192.168.80.0 255.255.255.0 11.0.4.1
+
+Router 47:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.5.0.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.60.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#ip route 11.0.4.0 255.255.255.252 11.0.5.1
+Router(config)#ip route 11.0.2.0 255.255.255.252 11.0.5.1
+Router(config)#ip route 11.0.0.0 255.255.255.252 11.0.5.1
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.5.1
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.5.1
+Router(config)#ip route 192.168.80.0 255.255.255.0 11.0.5.1
+
+Router 48:-
+
+Router(config)#interface FastEthernet4/0
+Router(config-if)#ip address 11.0.6.2 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config)#interface FastEthernet0/0
+Router(config-if)#ip address 192.168.70.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config)#ip route 11.0.9.0 255.255.255.252 11.0.6.1
+Router(config)#ip route 11.0.3.0 255.255.255.252 11.0.6.1
+Router(config)#ip route 11.0.1.0 255.255.255.252 11.0.6.1
+Router(config)#ip route 11.0.7.0 255.255.255.252 11.0.6.1
+Router(config)#ip route 11.0.8.0 255.255.255.252 11.0.6.1
+Router(config)#ip route 192.168.90.0 255.255.255.0 11.0.6.1
+
+NTP Server:-
+Router(config)# ntp server 200.200.200.2  (used all routers)
+
+DHCP vlan:-
+
+switch1:-
+Switch(config)#interface range fastEthernet 0/1-3
+Switch(config-if-range)#switchport trunk encapsulation dot1q 
+Switch(config-if-range)#switchport mode trunk 
+Switch(config)#vlan 60
+Switch(config-vlan)#name vlan60
+Switch(config-vlan)#vlan 70
+Switch(config-vlan)#name vlan70
+Switch(config)#ip routing
+
+witch(config)#interface vlan 60
+Switch(config-if)#ip address 192.168.60.1 255.255.255.0
+Switch(config-if)#no shutdown 
+
+Switch(config-if)#interface vlan 70
+Switch(config-if)#ip address 192.168.70.1 255.255.255.0
+Switch(config-if)#no shutdown 
+
+Switch(config)#interface vlan 60
+Switch(config-if)#ip helper-address 192.168.60.2
+Switch(config-if)#interface vlan 70
+Switch(config-if)#ip helper-address 192.168.60.2 
+
+switch2:-
+Switch(config)#interface gigabitEthernet 0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#exit 
+
+Switch(config)#vlan 60
+Switch(config-vlan)#name vlan60
+Switch(config-vlan)#vlan 70
+Switch(config-vlan)#name vlan70
+Switch(config-vlan)#exit
+
+Switch(config)#interface range fastEthernet 0/1-10
+Switch(config-if-range)#switchport access vlan 60
+Switch(config-if-range)#interface range fastEthernet 0/11-24
+Switch(config-if-range)#switchport access vlan 70
+
+switch3:-
+Switch(config)#vlan 60
+Switch(config-vlan)#name vlan60
+Switch(config-vlan)#vlan 70
+Switch(config-vlan)#name vlan70
+Switch(config-vlan)#exit 
+
+Switch(config)#interface range fastEthernet 0/1-10
+Switch(config-if-range)#switchport access vlan 60
+Switch(config-if-range)#interface range fastEthernet 0/11-24
+Switch(config-if-range)#switchport access vlan 70
+Switch(config-if-range)#exit 
+
+Switch(config)#interface gigabitEthernet 0/1
+Switch(config-if)#switchport mode trunk 
